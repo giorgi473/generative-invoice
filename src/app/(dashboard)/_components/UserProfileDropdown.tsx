@@ -12,8 +12,17 @@ import getAvatarName from "@/lib/getAvatarName";
 import { ChevronDown } from "lucide-react";
 import UserProfile from "./UserProfile";
 
-async function UserProfileDropdown() {
+interface IUserProfileDropdown {
+  isFullName: boolean;
+  isArrowUp: boolean;
+}
+
+async function UserProfileDropdown({
+  isFullName,
+  isArrowUp,
+}: IUserProfileDropdown) {
   const seasson = await auth();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -27,13 +36,17 @@ async function UserProfileDropdown() {
               )}
             </AvatarFallback>
           </Avatar>
-          <div>
-            <p className="text-ellipsis line-clamp-1 font-medium">
-              <span>{seasson?.user.firstName}</span>{" "}
-              <span>{seasson?.user.lastName}</span>
-            </p>
-          </div>
-          <ChevronDown className="transition-all ml-auto" size={16} />
+          {isFullName && (
+            <div>
+              <p className="text-ellipsis line-clamp-1 font-medium">
+                <span>{seasson?.user.firstName}</span>{" "}
+                <span>{seasson?.user.lastName}</span>
+              </p>
+            </div>
+          )}
+          {isArrowUp && (
+            <ChevronDown className="transition-all ml-auto" size={16} />
+          )}
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-full min-w-[250px]">

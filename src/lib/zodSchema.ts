@@ -10,4 +10,5 @@ export const onboardingSchema = z.object({
     .min(3, { message: "Last name is required" })
     .max(50, { message: "Last name max 50 character" }),
   currency: z.string({ message: "Select Currency" }).optional(),
+  
 });
